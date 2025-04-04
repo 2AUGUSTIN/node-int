@@ -94,7 +94,7 @@ db.query("SELECT * FROM task where id=?",[id],(error,result)=>{
 db.query(ql,[title,describiton,new Date(),id],(error,result)=>{
     if (error) return res.status(400).json({ error: error.message });
     
-return res.status(200).json({message:` task ${id} updated well`})
+return res.status(200).json({message:` task ${id} updated well`});
 
 
 });
@@ -112,13 +112,14 @@ if(!id) return res.status(404).json({message:"id not found"});
 
     });
 
-    app.get('/api/task/get', autheticate, (req, res) => {
-        const get = "select * from task where author=?";
-        db.query(get, [req.user],(error, result) => {
+    app.get('/api/task/get',autheticate,(req, res) => {
+        const get = "SELECT * FROM task WHERE author = ?";
+        db.query(get, [req.user], (error, result) => {
             if (error) return res.status(400).json({ error: error.message });
             return res.json(result);
-           });
+        });
     });
+    
     app.listen(port, () => {
     console.log(`server is listen on port ${port}`);
 })
